@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  colony: quali/cloudshell-colony@1.0.4
+  torque: quali/torque@dev:alpha
   aws-s3: circleci/aws-s3@1.0.11
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
-      - colony/start-sandbox:
+      - torque/start-sandbox:
           sandbox-name: "test-sandbox"
           blueprint: "leadeasy-application"
           inputs: "{'AWS_INSTANCE_TYPE': 'm5.large'}"
@@ -52,7 +52,7 @@ jobs:
             done
             NUM=`curl --silent -X GET ${!SB_ENDPOINT}/api/leads | grep -o Easy | wc -l` || exit 1
             [[ $NUM > 2 ]]
-      - colony/end-sandbox:
+      - torque/end-sandbox:
           sandbox-id: SANDBOX_ID
 workflows:
   leadeasy:
