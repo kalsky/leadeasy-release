@@ -58,9 +58,9 @@ workflows:
   leadeasy:
     jobs:
       - build
-      - publish:
-          requires:
-            - build
+#       - publish:
+#           requires:
+#             - build
       - test:
           requires:
             - publish
